@@ -1,0 +1,116 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\MobileApps\\social_app\\build\\firebase_messaging\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-zh-rTW\\values-zh-rTW.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\ahmedfo\\.gradle\\caches\\transforms-2\\files-2.1\\896e2f4f8d19f6815fa1177d1baae618\\jetified-firebase-messaging-22.0.0\\res\\values-zh-rTW\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "211",
+                        "endColumns": "66",
+                        "endOffsets": "277"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "267",
+                        "endColumns": "70",
+                        "endOffsets": "333"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ahmedfo\\.gradle\\caches\\transforms-2\\files-2.1\\a75107ac73ce71f65f062b9dd9f0ae0c\\jetified-play-services-basement-17.0.0\\res\\values-zh-rTW\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "161",
+                        "endOffsets": "412"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "105",
+                        "endColumns": "161",
+                        "endOffsets": "262"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ahmedfo\\.gradle\\caches\\transforms-2\\files-2.1\\206f152ababbb46865e9180a5f7e3bbe\\core-1.1.0\\res\\values-zh-rTW\\values-zh-rTW.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "338",
+                        "endColumns": "100",
+                        "endOffsets": "434"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\MobileApps\\social_app\\build\\firebase_messaging\\intermediates\\res\\merged\\release\\values-zh-rTW\\values-zh-rTW.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\ahmedfo\\.gradle\\caches\\transforms-2\\files-2.1\\896e2f4f8d19f6815fa1177d1baae618\\jetified-firebase-messaging-22.0.0\\res\\values-zh-rTW\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "211",
+                        "endColumns": "66",
+                        "endOffsets": "277"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "267",
+                        "endColumns": "70",
+                        "endOffsets": "333"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ahmedfo\\.gradle\\caches\\transforms-2\\files-2.1\\a75107ac73ce71f65f062b9dd9f0ae0c\\jetified-play-services-basement-17.0.0\\res\\values-zh-rTW\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "161",
+                        "endOffsets": "412"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "105",
+                        "endColumns": "161",
+                        "endOffsets": "262"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ahmedfo\\.gradle\\caches\\transforms-2\\files-2.1\\206f152ababbb46865e9180a5f7e3bbe\\core-1.1.0\\res\\values-zh-rTW\\values-zh-rTW.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "338",
+                        "endColumns": "100",
+                        "endOffsets": "434"
+                    }
+                }
+            ]
+        }
+    ]
+}
