@@ -96,7 +96,9 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   userId = CacheHelper.getData(key: 'userId');
-  lang = CacheHelper.getData(key: 'lang') == null ? 'en' : 'ar';
+  lang = CacheHelper.getData(key: 'lang') == null
+      ? 'en'
+      : CacheHelper.getData(key: 'lang');
   runApp(MainMaterial());
 }
 

@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:social_app/layout/home_layout.dart';
+import 'package:social_app/layout/home/home_layout.dart';
 import 'package:social_app/modules/login/login_screen.dart';
 import '../component.dart';
 import '../constants.dart';

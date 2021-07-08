@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/models/notification_model.dart';
 import 'package:social_app/modules/chats/chat_screen.dart';
 import 'package:social_app/shared/build_user.dart';
 import 'package:social_app/shared/component.dart';
@@ -21,12 +22,12 @@ class ChatsScreen extends StatelessWidget {
               child: ListView.separated(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) => BuildUser.buildUser(
-                  context,
-                  users.elementAt(index),
-                  ChatScreen(
+                  context: context,
+                  user: users.elementAt(index),
+                  screen: ChatScreen(
                     user: users.elementAt(index),
                   ),
-                  false,
+                  isList: false,
                 ),
                 separatorBuilder: (context, index) =>
                     Component.defaultDivider(context: context),

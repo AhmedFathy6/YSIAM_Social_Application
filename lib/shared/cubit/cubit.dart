@@ -9,6 +9,7 @@ import 'package:social_app/models/comment_post_model.dart';
 import 'package:social_app/models/like_post_model.dart';
 import 'package:social_app/models/message_model.dart';
 import 'package:social_app/models/notifactions/notify.dart' as notifyPage;
+import 'package:social_app/models/notification_model.dart';
 import 'package:social_app/models/post_model.dart';
 import 'package:social_app/models/user_model.dart';
 import 'package:social_app/modules/chats/chats_screen.dart';
@@ -23,6 +24,11 @@ import 'package:social_app/shared/firebase/manage_firestore.dart';
 import 'package:social_app/shared/network/remote/dio_helper.dart';
 import '../network/local/cache_helper.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
+enum AppStyle {
+  Modern,
+  Classic,
+}
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(InitialState());
@@ -41,7 +47,7 @@ class AppCubit extends Cubit<AppStates> {
   bool isDark = CacheHelper.getData(key: 'isDark') == null
       ? false
       : CacheHelper.getData(key: 'isDark');
-
+  AppStyle appStyle = AppStyle.Modern;
   List<File> postImages = [];
   List<PostModel> currentUserPosts = [];
   List<PostModel> userPosts = [];
@@ -53,7 +59,7 @@ class AppCubit extends Cubit<AppStates> {
     {ChatsScreen(): 'Chats'},
     {NewPostScreen(): 'New Post'},
     {UsersScreen(): 'Friends'},
-    {SettingsScreen(): 'Settings'},
+    {SettingsScreen(): 'Profile'},
   ];
 
 //#end region
@@ -92,6 +98,11 @@ class AppCubit extends Cubit<AppStates> {
     );
   }
 
+  void changeAppStyle(AppStyle style) {
+    appStyle = style;
+    emit(ChangeAppStyleState());
+  }
+
   //#end region Home
 
 //#region User
@@ -106,6 +117,7 @@ class AppCubit extends Cubit<AppStates> {
           currentUser = UserModel.fromJson(value.data()!);
           currentUser.token = token!;
           emit(GetUserSuccessState());
+          getUserNotification();
         },
       ).onError(
         (error, stackTrace) {
@@ -332,6 +344,15 @@ class AppCubit extends Cubit<AppStates> {
               token: element.token,
               body: post.postText,
               title: 'new post from ${currentUser.name}');
+          addUserNotification(
+            notification: NotificationModel(
+              body: post.postText,
+              title: 'new post from ${currentUser.name}',
+              image: currentUser.image,
+              userId: userId!,
+            ),
+            userId: element.userId,
+          );
         });
         getAllPostsData();
         getUserPostsData(userId!, true);
@@ -624,28 +645,57 @@ class AppCubit extends Cubit<AppStates> {
 
   void sendNotificationFromComments(
       {required String body, required PostModel post}) {
-    sendNotification(
-      token:
-          users.where((element) => post.userId == element.userId).first.token,
-      title: 'new comment from ${currentUser.name}',
-      body: body,
-      type: 'post',
-    );
+    if (userId! !=
+        users.where((element) => post.userId == element.userId).first.userId) {
+      sendNotification(
+        token:
+            users.where((element) => post.userId == element.userId).first.token,
+        title: 'new comment from ${currentUser.name}',
+        body: body,
+        type: 'post',
+      );
 
+      addUserNotification(
+        notification: NotificationModel(
+          body: body,
+          title: 'new comment from ${currentUser.name}',
+          image: currentUser.image,
+          userId: userId!,
+        ),
+        userId: users
+            .where((element) => post.userId == element.userId)
+            .first
+            .userId,
+      );
+    }
+    List<String> receivers = [];
     post.comments.forEach(
       (element) {
-        if (element.userId != userId)
-          sendNotification(
-            token: users
-                .where((element) => post.comments
-                    .where((e) => e.userId == element.userId)
-                    .isNotEmpty)
-                .first
-                .token,
-            title: 'new comment from ${currentUser.name}',
-            body: body,
-            type: 'post',
-          );
+        if (!receivers.contains(element.userId)) {
+          if (element.userId != userId) {
+            sendNotification(
+              token: users
+                  .where((element) => post.comments
+                      .where((e) => e.userId == element.userId)
+                      .isNotEmpty)
+                  .first
+                  .token,
+              title: 'new comment from ${currentUser.name}',
+              body: body,
+              type: 'post',
+            );
+            addUserNotification(
+              notification: NotificationModel(
+                body: body,
+                title: 'new comment from ${currentUser.name}',
+                image: currentUser.image,
+                userId: userId!,
+              ),
+              userId: element.userId,
+            );
+          }
+          receivers.add(element.userId);
+        }
       },
     );
   }
@@ -738,6 +788,58 @@ class AppCubit extends Cubit<AppStates> {
       ),
     );
     notify.sendNotification();
+  }
+
+  void addUserNotification(
+      {required NotificationModel notification, required String userId}) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('notifications')
+        .doc(notification.id)
+        .set(notification.toJson())
+        .then((value) {
+      emit(AddNotificationSuccessState());
+    }).onError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+      emit(AddNotificationErrorState(error: error.toString()));
+    });
+  }
+
+  void getUserNotification() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId!)
+        .collection('notifications')
+        .snapshots()
+        .listen((event) {
+      currentUser.notifications = NotificationModel.getList(event.docs);
+      sortNotifications();
+      emit(GetNotificationsSuccessState());
+    });
+  }
+
+  void sortNotifications() {
+    currentUser.notifications
+        .sort((a, b) => b.creationDate.compareTo(a.creationDate));
+    emit(SortNotificationsSuccessState());
+  }
+
+  void readNotification({required NotificationModel notification}) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId!)
+        .collection('notifications')
+        .doc(notification.id)
+        .update(notification.toJson())
+        .then((event) {
+      emit(ReadNotificationSuccessState());
+    }).onError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+      emit(ReadNotificationErrorState(error: error.toString()));
+    });
   }
 //#end region Send Notification
 }

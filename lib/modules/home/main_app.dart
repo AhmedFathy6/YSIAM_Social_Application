@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
 import 'package:social_app/classes/translation.dart';
-import 'package:social_app/layout/home_layout.dart';
+import 'package:social_app/layout/home/home_layout.dart';
 import 'package:social_app/modules/login/login_screen.dart';
 import 'package:social_app/shared/cubit/cubit.dart';
 import 'package:social_app/shared/cubit/states.dart';
 import 'package:social_app/shared/network/local/cache_helper.dart';
-import 'package:social_app/shared/theme_data.dart';
+import 'package:social_app/shared/styles/theme_data.dart';
 
 class MainMaterial extends StatelessWidget {
   final bool isLoginBefore = CacheHelper.getData(key: 'isLoginBefore') == null

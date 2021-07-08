@@ -21,16 +21,16 @@ class UsersScreen extends StatelessWidget {
               child: ListView.separated(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) => BuildUser.buildUser(
-                  context,
-                  cubit.users
+                  context: context,
+                  user: cubit.users
                       .where((element) => element.userId != userId!)
                       .elementAt(index),
-                  UserProfileScreen(
+                  screen: UserProfileScreen(
                     user: cubit.users
                         .where((element) => element.userId != userId!)
                         .elementAt(index),
                   ),
-                  false,
+                  isList: false,
                 ),
                 separatorBuilder: (context, index) =>
                     Component.defaultDivider(context: context),

@@ -36,7 +36,7 @@ Map<String, String> en = {
   'Friends': 'Friends',
   'Settings': 'Settings',
   'what is in you mind,': 'what is in you mind,',
-  'Notification': 'Notification',
+  'Notifications': 'Notifications',
   'Light': 'Light',
   'Dark': 'Dark',
   'Logout': 'Logout',
@@ -57,4 +57,6 @@ Map<String, String> en = {
   'Bio': 'Bio',
   'Must add Bio': 'Must add Bio',
   'press back one more time to exit': 'press back one more time to exit',
+  'Classic Mode': 'Classic Mode',
+  'Modern Mode': 'Modern Mode',
 };

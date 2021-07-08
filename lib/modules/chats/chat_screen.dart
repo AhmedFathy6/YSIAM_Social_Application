@@ -53,12 +53,13 @@ class _ChatScreenState extends State<ChatScreen> {
                 context: context,
                 beforeGoBack: () => cubit.messages.clear(),
                 title: BuildUser.buildUser(
-                    context,
-                    widget.user,
-                    UserProfileScreen(
-                      user: widget.user,
-                    ),
-                    false),
+                  context: context,
+                  user: widget.user,
+                  screen: UserProfileScreen(
+                    user: widget.user,
+                  ),
+                  isList: false,
+                ),
               ),
               body: Padding(
                 padding: const EdgeInsets.all(20.0),

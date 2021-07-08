@@ -28,6 +28,8 @@ class ChangeThemeState extends AppStates {}
 
 class ChangeLanguageState extends AppStates {}
 
+class ChangeAppStyleState extends AppStates {}
+
 class GetUserSuccessState extends AppStates {}
 
 class GetUserErrorState extends AppStates {
@@ -151,3 +153,21 @@ class GetMessagesErrorState extends AppStates {
   final String error;
   GetMessagesErrorState({required this.error});
 }
+
+class AddNotificationSuccessState extends AppStates {}
+
+class AddNotificationErrorState extends AppStates {
+  final String error;
+  AddNotificationErrorState({required this.error});
+}
+
+class ReadNotificationSuccessState extends AppStates {}
+
+class ReadNotificationErrorState extends AppStates {
+  final String error;
+  ReadNotificationErrorState({required this.error});
+}
+
+class GetNotificationsSuccessState extends AppStates {}
+
+class SortNotificationsSuccessState extends AppStates {}

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'notification_model.dart';
+
 class UserModel {
   String name = "";
   String phone = "";
@@ -10,6 +12,7 @@ class UserModel {
   String? bio = "";
   String token = "";
   bool? isEmailVerified = false;
+  List<NotificationModel> notifications = [];
 
   UserModel({
     required this.name,
@@ -22,7 +25,9 @@ class UserModel {
     this.isEmailVerified,
   });
 
-  UserModel.emptyObject();
+  UserModel.emptyObject() {
+    name = "No name found";
+  }
 
   UserModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];

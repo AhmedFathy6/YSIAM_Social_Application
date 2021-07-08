@@ -29,13 +29,14 @@ class ViewLikes extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return BuildUser.buildUser(
-              context,
-              userLikes[index],
-              UserProfileScreen(
-                user: userLikes[index],
-              ),
-              false,
-              true);
+            context: context,
+            user: userLikes[index],
+            screen: UserProfileScreen(
+              user: userLikes[index],
+            ),
+            isList: false,
+            screenEnum: Screen.ViewLikes,
+          );
         },
         separatorBuilder: (context, index) =>
             Component.defaultDivider(context: context),

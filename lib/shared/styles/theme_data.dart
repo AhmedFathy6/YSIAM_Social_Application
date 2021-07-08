@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import 'constants.dart';
+import '../constants.dart';
 
 ThemeData lightTheme() => ThemeData(
       primarySwatch: primaryColor,
@@ -27,8 +27,9 @@ ThemeData lightTheme() => ThemeData(
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.grey.shade100,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: primaryColor,
+        selectedItemColor: Colors.orange,
         elevation: 20.0,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -96,9 +97,9 @@ ThemeData darkTheme() => ThemeData(
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: HexColor('333739'),
+        backgroundColor: Colors.grey.shade700,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: primaryColor,
+        selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
         elevation: 20.0,
       ),

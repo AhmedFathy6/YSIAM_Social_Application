@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/modules/notifactions/notification.dart';
+import 'package:social_app/modules/users/user_profile.dart';
 import 'package:social_app/shared/component.dart';
 import 'package:social_app/shared/cubit/cubit.dart';
 import 'package:social_app/shared/cubit/states.dart';
@@ -30,10 +32,15 @@ class HomeDrawer extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 50.0,
-                          backgroundImage: NetworkImage(
-                            cubit.currentUser.image,
+                        InkWell(
+                          onTap: () => Get.to(
+                            () => UserProfileScreen(user: cubit.currentUser),
+                          ),
+                          child: CircleAvatar(
+                            radius: 50.0,
+                            backgroundImage: NetworkImage(
+                              cubit.currentUser.image,
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -64,12 +71,28 @@ class HomeDrawer extends StatelessWidget {
                         Expanded(
                           child: ListView(
                             children: [
-                              defualtLitTale(
-                                  title: 'Notification'.tr,
-                                  icon: IconBroken.Notification,
-                                  cubit: cubit,
-                                  context: context,
-                                  onClick: () {}),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: defualtLitTale(
+                                      title: 'Notifications'.tr,
+                                      icon: IconBroken.Notification,
+                                      cubit: cubit,
+                                      context: context,
+                                      onClick: () => Get.to(
+                                        () => UserNotificationsScreen(),
+                                      ),
+                                    ),
+                                  ),
+                                  if (cubit.currentUser.notifications
+                                      .where((element) => !element.isRead)
+                                      .isNotEmpty)
+                                    CircleAvatar(
+                                      radius: 5.0,
+                                      backgroundColor: Colors.red,
+                                    ),
+                                ],
+                              ),
                               Component.defaultDivider(
                                 context: context,
                                 endIndent: 0.0,
@@ -99,6 +122,24 @@ class HomeDrawer extends StatelessWidget {
                                 cubit: cubit,
                                 context: context,
                                 onClick: () => cubit.changeTheme(!cubit.isDark),
+                              ),
+                              Component.defaultDivider(
+                                context: context,
+                                endIndent: 0.0,
+                                indent: 0.0,
+                              ),
+                              defualtLitTale(
+                                title: cubit.appStyle == AppStyle.Modern
+                                    ? 'Modern Mode'.tr
+                                    : 'Classic Mode'.tr,
+                                icon: IconBroken.Discovery,
+                                cubit: cubit,
+                                context: context,
+                                onClick: () => cubit.changeAppStyle(
+                                  cubit.appStyle == AppStyle.Modern
+                                      ? AppStyle.Classic
+                                      : AppStyle.Modern,
+                                ),
                               ),
                               Component.defaultDivider(
                                 context: context,
